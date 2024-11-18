@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laravel 11 Custom User Registration & Login Tutorial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="{{ asset('lightbox2/dist/css/lightbox.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -22,12 +23,13 @@
                 <ul class="navbar-nav ms-auto">
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('login')) ? 'active' : '' }}"
-                               href="{{ route('login') }}">Login</a>
+                            <a class="nav-link {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('register')) ? 'active' : '' }}"
-                               href="{{ route('register') }}">Register</a>
+                            <a class="nav-link {{ (request()->is('register')) ? 'active' : '' }}" href="{{ route('register') }}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('gallery')) ? 'active' : '' }} " href="{{ route('gallery.index') }}">Gallery</a>
                         </li>
                     @else
                         <li class="nav-item dropdown">
@@ -38,6 +40,9 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" href="/users">Users</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('gallery.index') }}">Gallery</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -58,6 +63,7 @@
         @yield('content')
     </div>
 
+    <script src="{{ asset('lightbox2/dist/js/lightbox-plus-jquery.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

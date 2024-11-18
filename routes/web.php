@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GalleryController;
 
 
 Route::get('/', function () {
@@ -29,3 +30,5 @@ Route::get('checkrole', function () {
 })->middleware('checkrole');
 
 Route::resource ('users', UserController::class);
+
+Route::resource('gallery', GalleryController::class);
