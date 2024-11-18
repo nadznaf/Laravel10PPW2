@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -26,3 +27,5 @@ Route::get('checkrole', function () {
     return redirect()->route('dashboard')
         ->withSuccess('You are an admin.');
 })->middleware('checkrole');
+
+Route::resource ('users', UserController::class);
