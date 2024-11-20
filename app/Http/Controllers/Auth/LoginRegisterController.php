@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationSuccess;
 
 class LoginRegisterController extends Controller
 {
@@ -43,13 +45,16 @@ class LoginRegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'photo' => $path,
+            'created_at' => now()
         ]);
 
         $credentials = $request->only('email', 'password');
-
         Auth::attempt($credentials);
 
         $request->session()->regenerate();
+
+        // send email
+        Mail::to($user->email)->send(new RegistrationSuccess($user));
 
         return redirect()->route('dashboard')
             ->withSuccess('You have successfully registered and logged in!');
