@@ -118,4 +118,53 @@ class GalleryController extends Controller
 
         return redirect('gallery')->with('success', 'User deleted successfully.');
     }
+
+    /**
+ * @OA\Get (
+ *     path="/api/gallery",
+ *     tags={"gallery"},
+ *     summary="Returns a Sample API response",
+ *     description="A Sample API response to test out the API",
+ *     operationId="gallery",
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successfully retrieved the data",
+ *         @OA\JsonContent(
+ *             example={
+ *                 "success": true,
+ *                 "message": "Successfully retrieved the data",
+ *                 "gallery": {
+ *                     "id": 1,
+ *                     "title": "Gallery PPW2",
+ *                     "description": "Gallery PPW2",
+ *                     "picture": "https://via.placeholder.com/150",
+ *                     "created_at": "2024-11-10T07:00:00.000000Z",
+ *                     "updated_at": "2024-11-10T07:00:00.000000Z"
+ *                 }
+ *             }
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Data not found",
+ *         @OA\JsonContent(
+ *             example={
+ *                 "detail": "No gallery data found"
+ *             }
+ *         )
+ *     )
+ * )
+ */
+
+
+    public function gallery()
+    {
+        $data = array(
+            'success' => true,
+            'message' => 'Successfully retrieved the data',
+            'gallery' => Post::where('picture', '!=', '')->whereNotNull('picture')->orderBy('created_at', 'desc')->get()
+        );
+        return response()->json($data);
+    }
+
 }
